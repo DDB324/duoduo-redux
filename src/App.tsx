@@ -18,6 +18,13 @@ const App: React.FC = () => {
     store.dispatch(action);
   };
 
+  const clickBtn = () => {
+    const action = {
+      type: 'addItem'
+    };
+    store.dispatch(action);
+  };
+
   //受控input组件,value和onChange事件
   return (
     <div style={{margin: '10px'}}>
@@ -26,7 +33,7 @@ const App: React.FC = () => {
              onChange={changeInputValue}
              value={state.inputValue}
       />
-      <Button type='primary'>增加</Button>
+      <Button type='primary' onClick={clickBtn}>增加</Button>
       <div style={{margin: '10px', width: '300px'}}>
         <List
           bordered

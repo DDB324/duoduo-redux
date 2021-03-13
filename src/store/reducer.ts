@@ -1,11 +1,11 @@
 type State = {
-  inputValue: string
+  inputValue: string | undefined
   inputPlaceHolder: string
   list: string[]
 }
 type Action = {
   type: string
-  value: string
+  value?: string
 }
 
 const defaultState: State = {
@@ -19,8 +19,14 @@ const defaultState: State = {
 
 const reducer = (state = defaultState, action: Action) => {
   if (action.type === 'changeInput') {
-    let newState = JSON.parse(JSON.stringify(state));
+    let newState: State = JSON.parse(JSON.stringify(state));
     newState.inputValue = action.value;
+    return newState;
+  }
+  if (action.type === 'addItem') {
+    let newState: State = JSON.parse(JSON.stringify(state));
+    newState.inputValue && newState.list.push(newState.inputValue);
+    newState.inputValue = '';
     return newState;
   }
   return state;
