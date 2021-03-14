@@ -25,6 +25,14 @@ const App: React.FC = () => {
     store.dispatch(action);
   };
 
+  const deleteItem = (index: number) => {
+    const action = {
+      type: 'deleteItem',
+      value: index
+    };
+    store.dispatch(action);
+  };
+
   //受控input组件,value和onChange事件
   return (
     <div style={{margin: '10px'}}>
@@ -38,7 +46,7 @@ const App: React.FC = () => {
         <List
           bordered
           dataSource={state.list}
-          renderItem={item => <List.Item>{item}</List.Item>}
+          renderItem={(item, index) => <List.Item onClick={() => deleteItem(index)}>{item}</List.Item>}
         />
       </div>
     </div>
