@@ -1,6 +1,6 @@
 import {CHANGE_INPUT, ADD_ITEM, DELETE_ITEM} from './actionType';
 
-type State = {
+export type State = {
   inputValue: string | undefined
   inputPlaceHolder: string
   list: string[]
