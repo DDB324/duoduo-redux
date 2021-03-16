@@ -2,7 +2,8 @@ import React, {ChangeEvent, useState} from 'react';
 import 'antd/dist/antd.css';
 import {Input, Button, List} from 'antd';
 import {store} from './store';
-import {ADD_ITEM, CHANGE_INPUT, DELETE_ITEM} from './store/actionType';
+import {changeInputAction, clickBtnAction, deleteItemAction} from './store/actionCreator';
+
 
 const App: React.FC = () => {
   const [state, setState] = useState(store.getState());
@@ -12,26 +13,15 @@ const App: React.FC = () => {
 
   //用dispatch来传入操作和值
   const changeInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    const action = {
-      type: CHANGE_INPUT,
-      value: e.target.value
-    };
-    store.dispatch(action);
+    store.dispatch(changeInputAction(e.target.value));
   };
 
   const clickBtn = () => {
-    const action = {
-      type: ADD_ITEM
-    };
-    store.dispatch(action);
+    store.dispatch(clickBtnAction());
   };
 
   const deleteItem = (index: number) => {
-    const action = {
-      type: DELETE_ITEM,
-      value: index
-    };
-    store.dispatch(action);
+    store.dispatch(deleteItemAction(index));
   };
 
   //受控input组件,value和onChange事件
