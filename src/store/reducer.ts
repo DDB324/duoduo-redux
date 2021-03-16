@@ -19,24 +19,26 @@ const defaultState: State = {
   ]
 };
 
-const reducer = (state = defaultState, action: Action) => {
-  if (action.type === CHANGE_INPUT) {
-    let newState: State = JSON.parse(JSON.stringify(state));
-    if (typeof action.value === 'string') newState.inputValue = action.value;
-    return newState;
+const reducer = (state = defaultState, action: Action): State => {
+  //深拷贝state
+  let newState: State = JSON.parse(JSON.stringify(state));
+
+  //changeInput
+  if (action.type === CHANGE_INPUT && typeof action.value === 'string') {
+    newState.inputValue = action.value;
   }
+
+  //addItem
   if (action.type === ADD_ITEM) {
-    let newState: State = JSON.parse(JSON.stringify(state));
     newState.inputValue && newState.list.push(newState.inputValue);
     newState.inputValue = '';
-    return newState;
   }
-  if (action.type === DELETE_ITEM) {
-    let newState = JSON.parse(JSON.stringify(state));
+
+  //deleteItem
+  if (action.type === DELETE_ITEM && typeof action.value === 'number') {
     newState.list.splice(action.value, 1);
-    return newState;
   }
-  return state;
+  return newState;
 };
 
 export {reducer};
