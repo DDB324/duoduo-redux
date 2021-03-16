@@ -1,4 +1,4 @@
-import {CHANGE_INPUT, ADD_ITEM, DELETE_ITEM} from './actionType';
+import {CHANGE_INPUT, ADD_ITEM, DELETE_ITEM, GET_LIST} from './actionType';
 
 export type State = {
   inputValue: string | undefined
@@ -7,16 +7,13 @@ export type State = {
 }
 type Action = {
   type: string
-  value?: string | number
+  value?: string | number | string[]
 }
 
 const defaultState: State = {
   inputValue: '',
   inputPlaceHolder: '写点什么',
-  list: [
-    '早上10点面试',
-    '下午2点面试'
-  ]
+  list: []
 };
 
 const reducer = (state = defaultState, action: Action): State => {
@@ -37,6 +34,11 @@ const reducer = (state = defaultState, action: Action): State => {
   //deleteItem
   if (action.type === DELETE_ITEM && typeof action.value === 'number') {
     newState.list.splice(action.value, 1);
+  }
+
+  //获取的list数据
+  if (action.type === GET_LIST) {
+    newState.list = action.value as string[];
   }
   return newState;
 };

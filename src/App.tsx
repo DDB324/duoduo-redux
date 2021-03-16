@@ -1,8 +1,9 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import 'antd/dist/antd.css';
 import {store} from './store';
-import {changeInputAction, clickBtnAction, deleteItemAction} from './store/actionCreator';
+import {changeInputAction, clickBtnAction, deleteItemAction, getListAction} from './store/actionCreator';
 import {TodoListUI} from './TodoListUI';
+import axios from 'axios';
 
 
 const App: React.FC = () => {
@@ -25,6 +26,13 @@ const App: React.FC = () => {
   };
 
   //受控input组件,value和onChange事件
+  useEffect(() => {
+    axios.get('http://mock.51y.cc:81/mock/6050b74d32adfa0499d3bc1a/example/getList')
+      .then((res) => {
+        const data: string[] = res.data.data.list;
+        store.dispatch(getListAction(data));
+      });
+  }, []);
   return (
     <TodoListUI
       state={state}
