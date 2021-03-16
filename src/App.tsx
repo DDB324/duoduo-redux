@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import 'antd/dist/antd.css';
 import {Input, Button, List} from 'antd';
 import {store} from './store';
+import {ADD_ITEM, CHANGE_INPUT, DELETE_ITEM} from './store/actionType';
 
 const App: React.FC = () => {
   const [state, setState] = useState(store.getState());
@@ -12,7 +13,7 @@ const App: React.FC = () => {
   //用dispatch来传入操作和值
   const changeInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const action = {
-      type: 'changeInput',
+      type: CHANGE_INPUT,
       value: e.target.value
     };
     store.dispatch(action);
@@ -20,14 +21,14 @@ const App: React.FC = () => {
 
   const clickBtn = () => {
     const action = {
-      type: 'addItem'
+      type: ADD_ITEM
     };
     store.dispatch(action);
   };
 
   const deleteItem = (index: number) => {
     const action = {
-      type: 'deleteItem',
+      type: DELETE_ITEM,
       value: index
     };
     store.dispatch(action);
