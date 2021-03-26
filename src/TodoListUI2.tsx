@@ -1,25 +1,38 @@
-import React from 'react';
-import {connect} from 'react-redux'
+import React, {ChangeEvent} from 'react';
+import {connect} from 'react-redux';
 import {State} from './store/reducer';
+import {changeInputAction} from './store/actionCreator';
 
 type Props = {
-  inputPlaceHolder?:string
+  inputPlaceHolder?: string
+  inputChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const TodoListUI2:React.FC<Props> = (props)=>{
-  const {inputPlaceHolder} = props
+export const TodoListUI2: React.FC<Props> = (props) => {
+  const {inputPlaceHolder, inputChange} = props;
   return (
     <div>
-      <button>{inputPlaceHolder}</button>
+      <input type="text"
+             placeholder={inputPlaceHolder}
+             onChange={inputChange}
+      />
+      <button>提交</button>
     </div>
-  )
-}
+  );
+};
 
-const stateToProps = (state:State)=>{
+const stateToProps = (state: State) => {
   return {
     inputPlaceHolder: state.inputPlaceHolder
-  }
-}
+  };
+};
 
+const dispatchToProps = (dispatch: any) => {
+  return {
+    inputChange(e: ChangeEvent<HTMLInputElement>) {
+      dispatch(changeInputAction(e.target.value));
+    }
+  };
+};
 
-export default connect(stateToProps,null)(TodoListUI2)
+export default connect(stateToProps, dispatchToProps)(TodoListUI2);
